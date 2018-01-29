@@ -1,0 +1,132 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	6	calc_gem_mappability
+	7	calculate_uniq_mappable
+	1	create_summary
+	6	gem_2_wig
+	7	wig_2_bw
+	28
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_50.mappability
+    jobid: 12
+    wildcards: prefix=hg38_gem_index, kmer=50
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 50 -o hg38_gem_index_50
+Submitted job 12 with external jobid '24966124.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_25.mappability
+    jobid: 15
+    wildcards: prefix=hg38_gem_index, kmer=25
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 25 -o hg38_gem_index_25
+Submitted job 15 with external jobid '24966125.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: hg38_gem_index_20.mappability
+    output: hg38_gem_index_20.uniq.counts
+    jobid: 24
+    wildcards: prefix=hg38_gem_index, kmer=20
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > hg38_gem_index_20.uniq.counts
+Submitted job 24 with external jobid '24966126.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_40.mappability
+    jobid: 1
+    wildcards: prefix=hg38_gem_index, kmer=40
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 40 -o hg38_gem_index_40
+Submitted job 1 with external jobid '24966127.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/hg38_gem_index_20.wig
+    output: bigWigs/hg38_gem_index_20.bw
+    jobid: 2
+    wildcards: prefix=hg38_gem_index, kmer=20
+
+wigToBigWig wigs/hg38_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/hg38/fasta/hg38.chrom.sizes bigWigs/hg38_gem_index_20.bw
+Submitted job 2 with external jobid '24966128.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_30.mappability
+    jobid: 11
+    wildcards: prefix=hg38_gem_index, kmer=30
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 30 -o hg38_gem_index_30
+Submitted job 11 with external jobid '24966129.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_35.mappability
+    jobid: 9
+    wildcards: prefix=hg38_gem_index, kmer=35
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 35 -o hg38_gem_index_35
+Submitted job 9 with external jobid '24966130.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_45.mappability
+    jobid: 8
+    wildcards: prefix=hg38_gem_index, kmer=45
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 45 -o hg38_gem_index_45
+Submitted job 8 with external jobid '24966131.hpc-pbs1.hpcc.usc.edu'.
+Finished job 24.
+1 of 28 steps (4%) done
+Error in rule wig_2_bw:
+    jobid: 2
+    output: bigWigs/hg38_gem_index_20.bw
+    cluster_jobid: 24966128.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule calc_gem_mappability:
+    jobid: 12
+    output: hg38_gem_index_50.mappability
+    cluster_jobid: 24966124.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule calc_gem_mappability:
+    jobid: 8
+    output: hg38_gem_index_45.mappability
+    cluster_jobid: 24966131.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule calc_gem_mappability:
+    jobid: 1
+    output: hg38_gem_index_40.mappability
+    cluster_jobid: 24966127.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule calc_gem_mappability:
+    jobid: 9
+    output: hg38_gem_index_35.mappability
+    cluster_jobid: 24966130.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule calc_gem_mappability:
+    jobid: 15
+    output: hg38_gem_index_25.mappability
+    cluster_jobid: 24966125.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_30.mappability
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T17:00:08.329586.snakemake.log

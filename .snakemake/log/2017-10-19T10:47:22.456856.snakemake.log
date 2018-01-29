@@ -1,0 +1,100 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	1	create_summary
+	7	wig_2_bw
+	9
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.bw
+    jobid: 14
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=45
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.bw
+Submitted job 14 with external jobid '24968822.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.bw
+    jobid: 13
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=20
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.bw
+Submitted job 13 with external jobid '24968823.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.bw
+    jobid: 10
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=25
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.bw
+Submitted job 10 with external jobid '24968824.hpc-pbs1.hpcc.usc.edu'.
+
+rule create_summary:
+    input: C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.uniq.counts
+    output: summary_counts.tsv
+    jobid: 6
+
+Submitted job 6 with external jobid '24968825.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.bw
+    jobid: 7
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=30
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.bw
+Submitted job 7 with external jobid '24968826.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.bw
+    jobid: 5
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=50
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.bw
+Submitted job 5 with external jobid '24968827.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.bw
+    jobid: 4
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=40
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.bw
+Submitted job 4 with external jobid '24968828.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.wig
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.bw
+    jobid: 3
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=35
+
+wigToBigWig wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.wig /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.sizes bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.bw
+Submitted job 3 with external jobid '24968829.hpc-pbs1.hpcc.usc.edu'.
+Error in rule wig_2_bw:
+    jobid: 14
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.bw
+    cluster_jobid: 24968822.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 13
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.bw
+    cluster_jobid: 24968823.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 10
+    output: bigWigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.bw
+    cluster_jobid: 24968824.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Waiting at most 5 seconds for missing files.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-19T10:47:22.456856.snakemake.log

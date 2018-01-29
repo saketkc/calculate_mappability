@@ -1,0 +1,235 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	7	calc_gem_mappability
+	7	calculate_uniq_mappable
+	1	create_gem_index
+	1	create_summary
+	7	gem_2_wig
+	7	wig_2_bw
+	31
+
+rule create_gem_index:
+    input: /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa
+    output: S_cerevisiae_gem_index.gem
+    jobid: 4
+    threads: 16
+
+gem-indexer -T 16 -c dna -i /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o S_cerevisiae_gem_index
+Submitted job 4 with external jobid '24964633.hpc-pbs1.hpcc.usc.edu'.
+Finished job 4.
+1 of 31 steps (3%) done
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_25.mappability
+    jobid: 5
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=25
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 25 -o S_cerevisiae_gem_index_25
+Submitted job 5 with external jobid '24964635.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_45.mappability
+    jobid: 7
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=45
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 45 -o S_cerevisiae_gem_index_45
+Submitted job 7 with external jobid '24964636.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_20.mappability
+    jobid: 6
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=20
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 20 -o S_cerevisiae_gem_index_20
+Submitted job 6 with external jobid '24964637.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_35.mappability
+    jobid: 2
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 35 -o S_cerevisiae_gem_index_35
+Submitted job 2 with external jobid '24964638.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_40.mappability
+    jobid: 16
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=40
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 40 -o S_cerevisiae_gem_index_40
+Submitted job 16 with external jobid '24964639.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_30.mappability
+    jobid: 15
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=30
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 30 -o S_cerevisiae_gem_index_30
+Submitted job 15 with external jobid '24964640.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: S_cerevisiae_gem_index.gem
+    output: S_cerevisiae_gem_index_50.mappability
+    jobid: 11
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=50
+    threads: 16
+
+gem-mappability -T 16 -I S_cerevisiae_gem_index.gem -l 50 -o S_cerevisiae_gem_index_50
+Submitted job 11 with external jobid '24964641.hpc-pbs1.hpcc.usc.edu'.
+Finished job 6.
+2 of 31 steps (6%) done
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_20.mappability
+    output: S_cerevisiae_gem_index_20.uniq.counts
+    jobid: 30
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=20
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_20.uniq.counts
+Submitted job 30 with external jobid '24964664.hpc-pbs1.hpcc.usc.edu'.
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_20.mappability
+    output: wigs/S_cerevisiae_gem_index_20.wig
+    jobid: 19
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=20
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_20.mappability -o wigs/S_cerevisiae_gem_index_20
+Submitted job 19 with external jobid '24964665.hpc-pbs1.hpcc.usc.edu'.
+Finished job 7.
+3 of 31 steps (10%) done
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_45.mappability
+    output: wigs/S_cerevisiae_gem_index_45.wig
+    jobid: 22
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=45
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_45.mappability -o wigs/S_cerevisiae_gem_index_45
+Finished job 2.
+4 of 31 steps (13%) done
+Finished job 16.
+5 of 31 steps (16%) done
+Submitted job 22 with external jobid '24964666.hpc-pbs1.hpcc.usc.edu'.
+Finished job 11.
+6 of 31 steps (19%) done
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_45.mappability
+    output: S_cerevisiae_gem_index_45.uniq.counts
+    jobid: 27
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=45
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_45.uniq.counts
+Submitted job 27 with external jobid '24964667.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_40.mappability
+    output: S_cerevisiae_gem_index_40.uniq.counts
+    jobid: 29
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=40
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_40.uniq.counts
+Submitted job 29 with external jobid '24964668.hpc-pbs1.hpcc.usc.edu'.
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_35.mappability
+    output: wigs/S_cerevisiae_gem_index_35.wig
+    jobid: 17
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_35.mappability -o wigs/S_cerevisiae_gem_index_35
+Submitted job 17 with external jobid '24964669.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_50.mappability
+    output: S_cerevisiae_gem_index_50.uniq.counts
+    jobid: 28
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=50
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_50.uniq.counts
+Submitted job 28 with external jobid '24964670.hpc-pbs1.hpcc.usc.edu'.
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_40.mappability
+    output: wigs/S_cerevisiae_gem_index_40.wig
+    jobid: 20
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=40
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_40.mappability -o wigs/S_cerevisiae_gem_index_40
+Submitted job 20 with external jobid '24964671.hpc-pbs1.hpcc.usc.edu'.
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_50.mappability
+    output: wigs/S_cerevisiae_gem_index_50.wig
+    jobid: 21
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=50
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_50.mappability -o wigs/S_cerevisiae_gem_index_50
+Submitted job 21 with external jobid '24964672.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_35.mappability
+    output: S_cerevisiae_gem_index_35.uniq.counts
+    jobid: 25
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_35.uniq.counts
+Submitted job 25 with external jobid '24964673.hpc-pbs1.hpcc.usc.edu'.
+Finished job 15.
+7 of 31 steps (23%) done
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_30.mappability
+    output: wigs/S_cerevisiae_gem_index_30.wig
+    jobid: 23
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=30
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_30.mappability -o wigs/S_cerevisiae_gem_index_30
+Submitted job 23 with external jobid '24964676.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_30.mappability
+    output: S_cerevisiae_gem_index_30.uniq.counts
+    jobid: 24
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=30
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_30.uniq.counts
+Submitted job 24 with external jobid '24964677.hpc-pbs1.hpcc.usc.edu'.
+Error in rule calculate_uniq_mappable:
+    jobid: 30
+    output: S_cerevisiae_gem_index_20.uniq.counts
+    cluster_jobid: 24964664.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Waiting at most 5 seconds for missing files.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+S_cerevisiae_gem_index_25.mappability
+Removing output files of failed job gem_2_wig since they might be corrupted:
+wigs/S_cerevisiae_gem_index_35.wig
+Removing output files of failed job gem_2_wig since they might be corrupted:
+wigs/S_cerevisiae_gem_index_45.wig
+Removing output files of failed job gem_2_wig since they might be corrupted:
+wigs/S_cerevisiae_gem_index_20.wig
+Removing output files of failed job gem_2_wig since they might be corrupted:
+wigs/S_cerevisiae_gem_index_50.wig
+Removing output files of failed job gem_2_wig since they might be corrupted:
+wigs/S_cerevisiae_gem_index_30.wig
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T12:43:09.661993.snakemake.log

@@ -1,0 +1,26 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	create_gem_index
+	1
+
+rule create_gem_index:
+    input: /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.fasta
+    output: C_albicans_SC5314_version_A22-s07-m01-r27_gem_index
+    jobid: 0
+    threads: 16
+
+gem-indexer -T 16 -c dna -i /home/cmb-panasas2/skchoudh/genomes/C_albicans_SC5314/Assembly22/fasta/C_albicans_SC5314_version_A22-s07-m01-r27_chromosomes.fasta -o C_albicans_SC5314_version_A22-s07-m01-r27_gem_index
+Waiting at most 5 seconds for missing files.
+Error in rule create_gem_index:
+    jobid: 0
+    output: C_albicans_SC5314_version_A22-s07-m01-r27_gem_index
+
+MissingOutputException in line 18 of /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile:
+Missing files after 5 seconds:
+C_albicans_SC5314_version_A22-s07-m01-r27_gem_index
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T13:17:08.136073.snakemake.log

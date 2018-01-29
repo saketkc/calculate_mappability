@@ -1,0 +1,26 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	wig_2_bw
+	1
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_30.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_30.bw
+    jobid: 0
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=30
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_30.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_30.bw
+Error in rule wig_2_bw:
+    jobid: 0
+    output: bigWigs/EColi_str_bw25113_gem_index_30.bw
+
+RuleException:
+CalledProcessError in line 54 of /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile:
+Command 'wigToBigWig wigs/EColi_str_bw25113_gem_index_30.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_30.bw' returned non-zero exit status 255.
+  File "/panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile", line 54, in __rule_wig_2_bw
+  File "/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/envs/clipseq/lib/python3.6/concurrent/futures/thread.py", line 55, in run
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T15:19:07.150386.snakemake.log

@@ -1,0 +1,16 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	wig_2_bw
+	1
+
+rule wig_2_bw:
+    input: wigs/hg38_gem_index_35.wig
+    output: bigWigs/hg38_gem_index_35.bw
+    jobid: 0
+    wildcards: prefix=hg38_gem_index, kmer=35
+
+wigToBigWig wigs/hg38_gem_index_35.wig /home/cmb-panasas2/skchoudh/genomes/hg38/fasta/hg38.chrom.sizes bigWigs/hg38_gem_index_35.bw
+Finished job 0.
+1 of 1 steps (100%) done

@@ -1,0 +1,124 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	1	create_summary
+	7	wig_2_bw
+	9
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_40.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_40.bw
+    jobid: 6
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=40
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_40.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_40.bw
+Submitted job 6 with external jobid '24968811.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_20.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_20.bw
+    jobid: 5
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=20
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_20.bw
+Submitted job 5 with external jobid '24968812.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_50.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_50.bw
+    jobid: 8
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=50
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_50.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_50.bw
+Submitted job 8 with external jobid '24968813.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_45.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_45.bw
+    jobid: 7
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=45
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_45.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_45.bw
+Submitted job 7 with external jobid '24968814.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_35.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_35.bw
+    jobid: 3
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=35
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_35.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_35.bw
+Submitted job 3 with external jobid '24968815.hpc-pbs1.hpcc.usc.edu'.
+
+rule create_summary:
+    input: EColi_str_bw25113_gem_index_20.uniq.counts, EColi_str_bw25113_gem_index_25.uniq.counts, EColi_str_bw25113_gem_index_30.uniq.counts, EColi_str_bw25113_gem_index_35.uniq.counts, EColi_str_bw25113_gem_index_40.uniq.counts, EColi_str_bw25113_gem_index_45.uniq.counts, EColi_str_bw25113_gem_index_50.uniq.counts
+    output: summary_counts.tsv
+    jobid: 10
+
+Submitted job 10 with external jobid '24968816.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_25.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_25.bw
+    jobid: 16
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=25
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_25.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_25.bw
+Submitted job 16 with external jobid '24968817.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/EColi_str_bw25113_gem_index_30.wig
+    output: bigWigs/EColi_str_bw25113_gem_index_30.bw
+    jobid: 11
+    wildcards: prefix=EColi_str_bw25113_gem_index, kmer=30
+
+wigToBigWig wigs/EColi_str_bw25113_gem_index_30.wig /home/cmb-panasas2/skchoudh/genomes/EColi_str_bw25113/fasta/Escherichia_coli_bw25113.ASM75055v1.dna.chromosome.Chromosome.sizes bigWigs/EColi_str_bw25113_gem_index_30.bw
+Submitted job 11 with external jobid '24968818.hpc-pbs1.hpcc.usc.edu'.
+Error in rule wig_2_bw:
+    jobid: 6
+    output: bigWigs/EColi_str_bw25113_gem_index_40.bw
+    cluster_jobid: 24968811.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 5
+    output: bigWigs/EColi_str_bw25113_gem_index_20.bw
+    cluster_jobid: 24968812.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 8
+    output: bigWigs/EColi_str_bw25113_gem_index_50.bw
+    cluster_jobid: 24968813.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 7
+    output: bigWigs/EColi_str_bw25113_gem_index_45.bw
+    cluster_jobid: 24968814.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 3
+    output: bigWigs/EColi_str_bw25113_gem_index_35.bw
+    cluster_jobid: 24968815.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Finished job 10.
+1 of 9 steps (11%) done
+Error in rule wig_2_bw:
+    jobid: 16
+    output: bigWigs/EColi_str_bw25113_gem_index_25.bw
+    cluster_jobid: 24968817.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 11
+    output: bigWigs/EColi_str_bw25113_gem_index_30.bw
+    cluster_jobid: 24968818.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-19T10:44:40.323973.snakemake.log

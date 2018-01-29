@@ -1,0 +1,24 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	create_summary
+	1
+
+rule create_summary:
+    input: C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_20.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_25.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_30.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_35.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_40.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.uniq.counts, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_50.uniq.counts
+    output: summary_counts.tsv
+    jobid: 0
+
+Error in rule create_summary:
+    jobid: 0
+    output: summary_counts.tsv
+
+RuleException:
+TypeError in line 72 of /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile:
+expected str, bytes or os.PathLike object, not OutputFiles
+  File "/panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile", line 72, in __rule_create_summary
+  File "/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/envs/clipseq/lib/python3.6/concurrent/futures/thread.py", line 55, in run
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T16:02:30.941850.snakemake.log

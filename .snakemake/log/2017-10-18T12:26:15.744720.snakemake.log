@@ -1,0 +1,17 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	calc_gem_mappability
+	1
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_20.mappability
+    jobid: 0
+    wildcards: prefix=mm10_gem_index, kmer=20
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 20 -o mm10_gem_index_20
+Finished job 0.
+1 of 1 steps (100%) done

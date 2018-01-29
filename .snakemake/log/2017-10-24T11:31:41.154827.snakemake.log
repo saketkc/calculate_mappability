@@ -1,0 +1,14 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	create_summary
+	1
+
+rule create_summary:
+    input: mm10_gem_index_20.uniq.counts, mm10_gem_index_25.uniq.counts, mm10_gem_index_30.uniq.counts, mm10_gem_index_35.uniq.counts, mm10_gem_index_40.uniq.counts, mm10_gem_index_45.uniq.counts, mm10_gem_index_50.uniq.counts
+    output: summary_counts.tsv
+    jobid: 0
+
+Finished job 0.
+1 of 1 steps (100%) done

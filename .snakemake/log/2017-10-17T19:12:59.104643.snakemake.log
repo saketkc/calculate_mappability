@@ -1,0 +1,134 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	7	calc_gem_mappability
+	1	create_gem_index
+	7	gem_2_wig
+	7	wig_2_bw
+	23
+
+rule create_gem_index:
+    input: /home/cmb-panasas2/skchoudh/genomes/hg38/fasta/hg38.fa
+    output: hg38_gem_index.gem
+    jobid: 11
+    threads: 16
+
+gem-indexer -T 16 -c dna -i /home/cmb-panasas2/skchoudh/genomes/hg38/fasta/hg38.fa -o hg38_gem_index
+Submitted job 11 with external jobid '24959791.hpc-pbs1.hpcc.usc.edu'.
+Finished job 11.
+1 of 23 steps (4%) done
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_20.mappability
+    jobid: 13
+    wildcards: prefix=hg38_gem_index, kmer=20
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 20 -o hg38_gem_index_20
+Submitted job 13 with external jobid '24962101.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_30.mappability
+    jobid: 15
+    wildcards: prefix=hg38_gem_index, kmer=30
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 30 -o hg38_gem_index_30
+Submitted job 15 with external jobid '24962102.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_40.mappability
+    jobid: 1
+    wildcards: prefix=hg38_gem_index, kmer=40
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 40 -o hg38_gem_index_40
+Submitted job 1 with external jobid '24962103.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_50.mappability
+    jobid: 10
+    wildcards: prefix=hg38_gem_index, kmer=50
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 50 -o hg38_gem_index_50
+Submitted job 10 with external jobid '24962104.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_35.mappability
+    jobid: 7
+    wildcards: prefix=hg38_gem_index, kmer=35
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 35 -o hg38_gem_index_35
+Submitted job 7 with external jobid '24962105.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_25.mappability
+    jobid: 8
+    wildcards: prefix=hg38_gem_index, kmer=25
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 25 -o hg38_gem_index_25
+Submitted job 8 with external jobid '24962106.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_45.mappability
+    jobid: 3
+    wildcards: prefix=hg38_gem_index, kmer=45
+    threads: 16
+
+gem-mappability -T 16 -I hg38_gem_index.gem -l 45 -o hg38_gem_index_45
+Submitted job 3 with external jobid '24962107.hpc-pbs1.hpcc.usc.edu'.
+Finished job 13.
+2 of 23 steps (9%) done
+
+rule gem_2_wig:
+    input: hg38_gem_index.gem, hg38_gem_index_20.mappability
+    output: wigs/hg38_gem_index_20.wig
+    jobid: 20
+    wildcards: prefix=hg38_gem_index, kmer=20
+
+gem-2-wig -I hg38_gem_index.gem -i hg38_gem_index_20.mappability -o wigs/hg38_gem_index_20
+Submitted job 20 with external jobid '24962431.hpc-pbs1.hpcc.usc.edu'.
+Finished job 20.
+3 of 23 steps (13%) done
+
+rule wig_2_bw:
+    input: wigs/hg38_gem_index_20.wig
+    output: bigWigs/hg38_gem_index_20.bw
+    jobid: 9
+    wildcards: prefix=hg38_gem_index, kmer=20
+
+wigToBigWig wigs/hg38_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/hg38/fasta/hg38.chrom.sizes bigWigs/hg38_gem_index_20.bw
+Submitted job 9 with external jobid '24962497.hpc-pbs1.hpcc.usc.edu'.
+Error in rule wig_2_bw:
+    jobid: 9
+    output: bigWigs/hg38_gem_index_20.bw
+    cluster_jobid: 24962497.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_40.mappability
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_30.mappability
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_50.mappability
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_35.mappability
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_25.mappability
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+hg38_gem_index_45.mappability
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-17T19:12:59.104643.snakemake.log

@@ -1,0 +1,28 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	calculate_uniq_mappable
+	1
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_35.mappability
+    output: S_cerevisiae_gem_index_35.uniq.counts
+    jobid: 0
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_35.uniq.counts
+Error in rule calculate_uniq_mappable:
+    jobid: 0
+    output: S_cerevisiae_gem_index_35.uniq.counts
+
+RuleException:
+CalledProcessError in line 61 of /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile:
+Command 'gawk '{c+=gsub(s,s)}END{print c}' s='!' hg38_gem_index_20.mappability > S_cerevisiae_gem_index_35.uniq.counts' returned non-zero exit status 2.
+  File "/panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile", line 61, in __rule_calculate_uniq_mappable
+  File "/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/envs/clipseq/lib/python3.6/concurrent/futures/thread.py", line 55, in run
+Removing output files of failed job calculate_uniq_mappable since they might be corrupted:
+S_cerevisiae_gem_index_35.uniq.counts
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T12:50:39.974096.snakemake.log

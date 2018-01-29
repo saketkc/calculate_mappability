@@ -1,0 +1,26 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	wig_2_bw
+	1
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_50.wig
+    output: bigWigs/S_cerevisiae_gem_index_50.bw
+    jobid: 0
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=50
+
+wigToBigWig wigs/S_cerevisiae_gem_index_50.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_50.bw
+Error in rule wig_2_bw:
+    jobid: 0
+    output: bigWigs/S_cerevisiae_gem_index_50.bw
+
+RuleException:
+CalledProcessError in line 54 of /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile:
+Command 'wigToBigWig wigs/S_cerevisiae_gem_index_50.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_50.bw' returned non-zero exit status 255.
+  File "/panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/Snakefile", line 54, in __rule_wig_2_bw
+  File "/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/envs/clipseq/lib/python3.6/concurrent/futures/thread.py", line 55, in run
+Will exit after finishing currently running jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T12:59:03.413234.snakemake.log

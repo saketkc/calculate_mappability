@@ -1,0 +1,40 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	2	calc_gem_mappability
+	2	calculate_uniq_mappable
+	1	create_summary
+	2	gem_2_wig
+	2	wig_2_bw
+	10
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_40.mappability
+    jobid: 5
+    wildcards: prefix=hg38_gem_index, kmer=40
+    threads: 23
+
+gem-mappability -T 23 -I hg38_gem_index.gem -l 40 -o hg38_gem_index_40
+Submitted job 5 with external jobid '24995231.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: hg38_gem_index.gem
+    output: hg38_gem_index_30.mappability
+    jobid: 16
+    wildcards: prefix=hg38_gem_index, kmer=30
+    threads: 23
+
+gem-mappability -T 23 -I hg38_gem_index.gem -l 30 -o hg38_gem_index_30
+Submitted job 16 with external jobid '24995232.hpc-pbs1.hpcc.usc.edu'.
+Error in rule calc_gem_mappability:
+    jobid: 5
+    output: hg38_gem_index_40.mappability
+    cluster_jobid: 24995231.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Cancelling snakemake on user request.

@@ -1,0 +1,137 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	1	calculate_uniq_mappable
+	1	create_summary
+	2	gem_2_wig
+	7	wig_2_bw
+	12
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_20.mappability
+    output: wigs/S_cerevisiae_gem_index_20.wig
+    jobid: 25
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=20
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_20.mappability -o wigs/S_cerevisiae_gem_index_20
+Submitted job 25 with external jobid '24965399.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_50.wig
+    output: bigWigs/S_cerevisiae_gem_index_50.bw
+    jobid: 16
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=50
+
+wigToBigWig wigs/S_cerevisiae_gem_index_50.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_50.bw
+Submitted job 16 with external jobid '24965400.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_45.wig
+    output: bigWigs/S_cerevisiae_gem_index_45.bw
+    jobid: 14
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=45
+
+wigToBigWig wigs/S_cerevisiae_gem_index_45.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_45.bw
+Submitted job 14 with external jobid '24965401.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_25.wig
+    output: bigWigs/S_cerevisiae_gem_index_25.bw
+    jobid: 13
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=25
+
+wigToBigWig wigs/S_cerevisiae_gem_index_25.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_25.bw
+Submitted job 13 with external jobid '24965402.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_35.wig
+    output: bigWigs/S_cerevisiae_gem_index_35.bw
+    jobid: 11
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+
+wigToBigWig wigs/S_cerevisiae_gem_index_35.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_35.bw
+Submitted job 11 with external jobid '24965404.hpc-pbs1.hpcc.usc.edu'.
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_30.wig
+    output: bigWigs/S_cerevisiae_gem_index_30.bw
+    jobid: 7
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=30
+
+wigToBigWig wigs/S_cerevisiae_gem_index_30.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_30.bw
+Submitted job 7 with external jobid '24965406.hpc-pbs1.hpcc.usc.edu'.
+
+rule calculate_uniq_mappable:
+    input: S_cerevisiae_gem_index_35.mappability
+    output: S_cerevisiae_gem_index_35.uniq.counts
+    jobid: 17
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=35
+
+gawk '{c+=gsub(s,s)}END{print c}' s='!' S_cerevisiae_gem_index_35.mappability > S_cerevisiae_gem_index_35.uniq.counts
+Submitted job 17 with external jobid '24965408.hpc-pbs1.hpcc.usc.edu'.
+
+rule gem_2_wig:
+    input: S_cerevisiae_gem_index.gem, S_cerevisiae_gem_index_40.mappability
+    output: wigs/S_cerevisiae_gem_index_40.wig
+    jobid: 27
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=40
+
+gem-2-wig -I S_cerevisiae_gem_index.gem -i S_cerevisiae_gem_index_40.mappability -o wigs/S_cerevisiae_gem_index_40
+Submitted job 27 with external jobid '24965410.hpc-pbs1.hpcc.usc.edu'.
+Finished job 25.
+1 of 12 steps (8%) done
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_20.wig
+    output: bigWigs/S_cerevisiae_gem_index_20.bw
+    jobid: 10
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=20
+
+wigToBigWig wigs/S_cerevisiae_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_20.bw
+Error in rule wig_2_bw:
+    jobid: 16
+    output: bigWigs/S_cerevisiae_gem_index_50.bw
+    cluster_jobid: 24965400.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 14
+    output: bigWigs/S_cerevisiae_gem_index_45.bw
+    cluster_jobid: 24965401.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 7
+    output: bigWigs/S_cerevisiae_gem_index_30.bw
+    cluster_jobid: 24965406.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Submitted job 10 with external jobid '24965425.hpc-pbs1.hpcc.usc.edu'.
+Finished job 27.
+2 of 12 steps (17%) done
+
+rule wig_2_bw:
+    input: wigs/S_cerevisiae_gem_index_40.wig
+    output: bigWigs/S_cerevisiae_gem_index_40.bw
+    jobid: 12
+    wildcards: prefix=S_cerevisiae_gem_index, kmer=40
+
+wigToBigWig wigs/S_cerevisiae_gem_index_40.wig /home/cmb-panasas2/skchoudh/genomes/S_cerevisiae/fasta/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.sizes bigWigs/S_cerevisiae_gem_index_40.bw
+Submitted job 12 with external jobid '24965426.hpc-pbs1.hpcc.usc.edu'.
+Error in rule wig_2_bw:
+    jobid: 10
+    output: bigWigs/S_cerevisiae_gem_index_20.bw
+    cluster_jobid: 24965425.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Error in rule wig_2_bw:
+    jobid: 12
+    output: bigWigs/S_cerevisiae_gem_index_40.bw
+    cluster_jobid: 24965426.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T15:10:35.091484.snakemake.log

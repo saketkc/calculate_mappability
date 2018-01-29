@@ -1,0 +1,222 @@
+Provided cluster nodes: 100
+Provided resources: mem_mb=720000
+Job counts:
+	count	jobs
+	1	all
+	7	calc_gem_mappability
+	1	create_gem_index
+	7	gem_2_wig
+	7	wig_2_bw
+	23
+
+rule create_gem_index:
+    input: /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.fa
+    output: mm10_gem_index.gem
+    jobid: 9
+    threads: 16
+
+gem-indexer -T 16 -c dna -i /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.fa -o mm10_gem_index
+Submitted job 9 with external jobid '24964543.hpc-pbs1.hpcc.usc.edu'.
+Finished job 9.
+1 of 23 steps (4%) done
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_40.mappability
+    jobid: 8
+    wildcards: prefix=mm10_gem_index, kmer=40
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 40 -o mm10_gem_index_40
+Submitted job 8 with external jobid '24964597.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_25.mappability
+    jobid: 10
+    wildcards: prefix=mm10_gem_index, kmer=25
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 25 -o mm10_gem_index_25
+Submitted job 10 with external jobid '24964598.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_50.mappability
+    jobid: 13
+    wildcards: prefix=mm10_gem_index, kmer=50
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 50 -o mm10_gem_index_50
+Submitted job 13 with external jobid '24964599.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_35.mappability
+    jobid: 15
+    wildcards: prefix=mm10_gem_index, kmer=35
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 35 -o mm10_gem_index_35
+Submitted job 15 with external jobid '24964600.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_45.mappability
+    jobid: 2
+    wildcards: prefix=mm10_gem_index, kmer=45
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 45 -o mm10_gem_index_45
+Submitted job 2 with external jobid '24964601.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_30.mappability
+    jobid: 4
+    wildcards: prefix=mm10_gem_index, kmer=30
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 30 -o mm10_gem_index_30
+Submitted job 4 with external jobid '24964602.hpc-pbs1.hpcc.usc.edu'.
+
+rule calc_gem_mappability:
+    input: mm10_gem_index.gem
+    output: mm10_gem_index_20.mappability
+    jobid: 6
+    wildcards: prefix=mm10_gem_index, kmer=20
+    threads: 16
+
+gem-mappability -T 16 -I mm10_gem_index.gem -l 20 -o mm10_gem_index_20
+Submitted job 6 with external jobid '24964603.hpc-pbs1.hpcc.usc.edu'.
+Finished job 6.
+2 of 23 steps (9%) done
+
+rule gem_2_wig:
+    input: mm10_gem_index.gem, mm10_gem_index_20.mappability
+    output: wigs/mm10_gem_index_20.wig
+    jobid: 16
+    wildcards: prefix=mm10_gem_index, kmer=20
+
+gem-2-wig -I mm10_gem_index.gem -i mm10_gem_index_20.mappability -o wigs/mm10_gem_index_20
+Submitted job 16 with external jobid '24965001.hpc-pbs1.hpcc.usc.edu'.
+Finished job 16.
+3 of 23 steps (13%) done
+
+rule wig_2_bw:
+    input: wigs/mm10_gem_index_20.wig
+    output: bigWigs/mm10_gem_index_20.bw
+    jobid: 1
+    wildcards: prefix=mm10_gem_index, kmer=20
+
+wigToBigWig wigs/mm10_gem_index_20.wig /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.chrom.sizes bigWigs/mm10_gem_index_20.bw
+Submitted job 1 with external jobid '24965052.hpc-pbs1.hpcc.usc.edu'.
+Finished job 1.
+4 of 23 steps (17%) done
+Error in rule calc_gem_mappability:
+    jobid: 13
+    output: mm10_gem_index_50.mappability
+    cluster_jobid: 24964599.hpc-pbs1.hpcc.usc.edu
+
+Job failed, going on with independent jobs.
+Finished job 2.
+5 of 23 steps (22%) done
+
+rule gem_2_wig:
+    input: mm10_gem_index.gem, mm10_gem_index_45.mappability
+    output: wigs/mm10_gem_index_45.wig
+    jobid: 19
+    wildcards: prefix=mm10_gem_index, kmer=45
+
+gem-2-wig -I mm10_gem_index.gem -i mm10_gem_index_45.mappability -o wigs/mm10_gem_index_45
+Submitted job 19 with external jobid '24967290.hpc-pbs1.hpcc.usc.edu'.
+Finished job 19.
+6 of 23 steps (26%) done
+
+rule wig_2_bw:
+    input: wigs/mm10_gem_index_45.wig
+    output: bigWigs/mm10_gem_index_45.bw
+    jobid: 7
+    wildcards: prefix=mm10_gem_index, kmer=45
+
+wigToBigWig wigs/mm10_gem_index_45.wig /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.chrom.sizes bigWigs/mm10_gem_index_45.bw
+Submitted job 7 with external jobid '24967298.hpc-pbs1.hpcc.usc.edu'.
+Finished job 7.
+7 of 23 steps (30%) done
+Finished job 8.
+8 of 23 steps (35%) done
+
+rule gem_2_wig:
+    input: mm10_gem_index.gem, mm10_gem_index_40.mappability
+    output: wigs/mm10_gem_index_40.wig
+    jobid: 18
+    wildcards: prefix=mm10_gem_index, kmer=40
+
+gem-2-wig -I mm10_gem_index.gem -i mm10_gem_index_40.mappability -o wigs/mm10_gem_index_40
+Submitted job 18 with external jobid '24967503.hpc-pbs1.hpcc.usc.edu'.
+Finished job 18.
+9 of 23 steps (39%) done
+
+rule wig_2_bw:
+    input: wigs/mm10_gem_index_40.wig
+    output: bigWigs/mm10_gem_index_40.bw
+    jobid: 5
+    wildcards: prefix=mm10_gem_index, kmer=40
+
+wigToBigWig wigs/mm10_gem_index_40.wig /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.chrom.sizes bigWigs/mm10_gem_index_40.bw
+Submitted job 5 with external jobid '24967550.hpc-pbs1.hpcc.usc.edu'.
+Finished job 5.
+10 of 23 steps (43%) done
+Finished job 15.
+11 of 23 steps (48%) done
+
+rule gem_2_wig:
+    input: mm10_gem_index.gem, mm10_gem_index_35.mappability
+    output: wigs/mm10_gem_index_35.wig
+    jobid: 22
+    wildcards: prefix=mm10_gem_index, kmer=35
+
+gem-2-wig -I mm10_gem_index.gem -i mm10_gem_index_35.mappability -o wigs/mm10_gem_index_35
+Submitted job 22 with external jobid '24972171.hpc-pbs1.hpcc.usc.edu'.
+Finished job 22.
+12 of 23 steps (52%) done
+
+rule wig_2_bw:
+    input: wigs/mm10_gem_index_35.wig
+    output: bigWigs/mm10_gem_index_35.bw
+    jobid: 14
+    wildcards: prefix=mm10_gem_index, kmer=35
+
+wigToBigWig wigs/mm10_gem_index_35.wig /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.chrom.sizes bigWigs/mm10_gem_index_35.bw
+Error submitting jobscript (exit code 30):
+
+Job failed, going on with independent jobs.
+Finished job 10.
+13 of 23 steps (57%) done
+
+rule gem_2_wig:
+    input: mm10_gem_index.gem, mm10_gem_index_25.mappability
+    output: wigs/mm10_gem_index_25.wig
+    jobid: 20
+    wildcards: prefix=mm10_gem_index, kmer=25
+
+gem-2-wig -I mm10_gem_index.gem -i mm10_gem_index_25.mappability -o wigs/mm10_gem_index_25
+Submitted job 20 with external jobid '24973971.hpc-pbs1.hpcc.usc.edu'.
+Finished job 20.
+14 of 23 steps (61%) done
+
+rule wig_2_bw:
+    input: wigs/mm10_gem_index_25.wig
+    output: bigWigs/mm10_gem_index_25.bw
+    jobid: 11
+    wildcards: prefix=mm10_gem_index, kmer=25
+
+wigToBigWig wigs/mm10_gem_index_25.wig /home/cmb-panasas2/skchoudh/genomes/mm10/fasta/mm10.chrom.sizes bigWigs/mm10_gem_index_25.bw
+Submitted job 11 with external jobid '24973996.hpc-pbs1.hpcc.usc.edu'.
+Finished job 11.
+15 of 23 steps (65%) done
+Terminating processes on user request.
+Will exit after finishing currently running jobs.
+Removing output files of failed job calc_gem_mappability since they might be corrupted:
+mm10_gem_index_30.mappability
+Complete log: /panfs/cmb-panasas2/skchoudh/github_projects/calculate_mappability/.snakemake/log/2017-10-18T11:50:38.490771.snakemake.log

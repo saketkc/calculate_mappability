@@ -1,0 +1,16 @@
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	gem_2_wig
+	1
+
+rule gem_2_wig:
+    input: C_albicans_SC5314_version_A22-s07-m01-r27_gem_index.gem, C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.mappability
+    output: wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.wig
+    jobid: 0
+    wildcards: prefix=C_albicans_SC5314_version_A22-s07-m01-r27_gem_index, kmer=45
+
+gem-2-wig -I C_albicans_SC5314_version_A22-s07-m01-r27_gem_index.gem -i C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45.mappability -o wigs/C_albicans_SC5314_version_A22-s07-m01-r27_gem_index_45
+Finished job 0.
+1 of 1 steps (100%) done
