@@ -1,11 +1,12 @@
 import os
 
 include:
-    os.path.join('configs', config['config'] + '.py')
+   config['config_path']
 
 workdir: OUT_DIR
 
-KMER_LENGTHS = range(20, 51, 5)
+THREADS = 16
+KMER_LENGTHS = range(25, 32, 1)
 
 rule all:
     input:
@@ -20,20 +21,60 @@ rule create_gem_index:
     output: GEM_INDEX
     params:
         prefix = GEM_INDEX_PREFIX
-    threads: 23
+    threads: THREADS
     shell:
         r'''gem-indexer -T {threads} -c dna -i {input} -o {params.prefix}'''
 
+
+"""
+--mapping-mode={'fast'|'sensitive'|'customed'}
+      Specify the mapping alignment approach used by the tool which ultimately 
+      leads to a different accuracy/performance trade-off 
+      [default=fast]
+
+    -e, --alignment-max-error={FLOAT|INTEGER} 
+      Maximum divergency rate allowed between the input sequence and the reported
+      matches (i.e. maximum number of mismatches or indels allowed). All 
+      global-matches above this error rate will be discarded 
+      [default=0.12, 12%]
+
+    --alignment-global-min-identity={FLOAT|INTEGER}
+      Minimum global-alignment identity required (i.e. total  number of matching 
+      bases). All global-matches below this identity will be discared 
+      [default=80%]
+
+    --alignment-global-min-score={FLOAT|INTEGER} 
+      Minimum global-alignment score required (i.e. gap-affine score). All 
+      global-matches with score below this threshold will be discarded 
+      [default=0.20, 0.20*read_length*match_score]
+
+    --alignment-local={'if-unmapped'|'never'} 
+      Select whether the mapping algorithm should search for local alignments in
+      case no global alignment is found, or never resort to local alignment search
+      [default=if-unmapped]
+
+    --alignment-local-min-identity={FLOAT|INTEGER} 
+      Minimum local-alignment identity required (i.e. total number of matching 
+      bases). All local-matches below this identity will be discarded
+      [default=40]
+
+    --alignment-local-min-score={FLOAT|INTEGER}  [default=20]
+      Minimum global-alignment score required (i.e. gap-affine score). All 
+      global-matches with score below this threshold will be discarded 
+      [default=20]
+"""
 
 rule calc_gem_mappability:
     input: GEM_INDEX
     output: '{prefix}_{kmer}.mappability'
     params:
         kmer='{kmer}',
-        prefix='{prefix}_{kmer}'
-    threads: 23
+        prefix='{prefix}_{kmer}',
+        min_match=18,
+        max_mismatch=2,
+    threads: THREADS
     shell:
-        r'''gem-mappability -T {threads} -I {input} -l {params.kmer} -o {params.prefix}'''
+        r'''gem-mappability -T {threads} --alignment-local-min-identity={params.min_match} --alignment-max-error={params.max_mismatch} -I {input} -l {params.kmer} -o {params.prefix}'''
 
 
 rule gem_2_wig:

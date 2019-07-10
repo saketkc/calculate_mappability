@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 DIR=$(dirname "$(readlink -f "$0")")
 
-export PATH="/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/envs/clipseq/bin:/home/cmb-panasas2/skchoudh/software_frozen/meme_4.10.2_bin/bin:/home/cmb-panasas2/skchoudh/software_frozen/anaconda27/bin:/home/cmb-panasas2/skchoudh/software_frozen/phast-1.4/bin:/home/cmb-panasas2/skchoudh/software_frozen/meme_4.10.2_bin/bin:/home/cmb-panasas2/skchoudh/software_frozen/anaconda2/bin:/home/cmb-panasas2/skchoudh/software_frozen/phast-1.4/bin:/usr/lib64/qt-3.3/bin:/opt/moab/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin"
-source activate clipseq
 echo "=============================="
-cd $PBS_O_WORKDIR
+cd $SLURM_SUBMIT_DIR
 echo "=============================="
-echo $PBS_O_WORKDIR
+echo $SLURM_SUBMIT_DIR
 echo "=============================="
 echo "=============================="
 echo $PATH
 echo "=============================="
-echo $JOB_ID
+echo $SLURM_JOB_ID
 echo "=============================="
 
 {exec_job}
 
 # Report resource consumption because it's not reported by default
 echo "------------------------------"
-qstat -f $JOB_ID | grep 'used'
+scontrol show job $SLURM_JOB_ID
 
 # if the job succeeds, snakemake 
 # touches jobfinished, thus if it exists cat succeeds. if cat fails, the error code indicates job failure

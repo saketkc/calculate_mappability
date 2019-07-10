@@ -1,9 +1,10 @@
 __default__:
-    q: 'cmb'
+    partition: 'cmb'
     time: '125:00:00'
     mem: '40000MB'
-    cores: 24
-    logdir: '/home/cmb-06/as/skchoudh/logs/'
+    cores: 16
+    logout: '/home/cmb-06/as/skchoudh/logs/'
+    logerror: '/home/cmb-06/as/skchoudh/logs/'
 
 create_gem_index:
     mem: '60000MB'
