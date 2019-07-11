@@ -1,12 +1,38 @@
 import os
+from collections import defaultdict
+import errno
+import glob
+import numpy as np
+import pandas as pd
+from os.path import join
 
 include:
    config['config_path']
 
 workdir: OUT_DIR
-
+GEM_BINARY_DIR = '/home/cmb-06/as/skchoudh/software_frozen/GEM-binaries-Linux-x86_64-core_i3-20130406-045632/bin'
 THREADS = 16
 KMER_LENGTHS = range(25, 32, 1)
+def mkdir_p(path):
+  """Python version mkdir -p
+
+  Parameters
+  ----------
+
+  path : str
+  """
+  if path:
+    try:
+      os.makedirs(path) 
+    except OSError as exc:  # Python >2.5
+      if exc.errno == errno.EEXIST and os.path.isdir(path):
+        pass
+      else:
+        raise
+
+
+
+mkdir_p(os.path.join(OUT_DIR, 'slurm-logs'))
 
 rule all:
     input:
@@ -23,7 +49,7 @@ rule create_gem_index:
         prefix = GEM_INDEX_PREFIX
     threads: THREADS
     shell:
-        r'''gem-indexer -T {threads} -c dna -i {input} -o {params.prefix}'''
+        r'''{GEM_BINARY_DIR}/gem-indexer -T {threads} -c dna -i {input} -o {params.prefix}'''
 
 
 """
@@ -74,7 +100,7 @@ rule calc_gem_mappability:
         max_mismatch=2,
     threads: THREADS
     shell:
-        r'''gem-mappability -T {threads} --alignment-local-min-identity={params.min_match} --alignment-max-error={params.max_mismatch} -I {input} -l {params.kmer} -o {params.prefix}'''
+        r'''{GEM_BINARY_DIR}/gem-mappability -T {threads} -m {params.max_mismatch} -I {input} -l {params.kmer} -o {params.prefix}'''
 
 
 rule gem_2_wig:
