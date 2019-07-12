@@ -115,7 +115,7 @@ rule gem_2_wig:
 
 
 rule wig_2_bw:
-    input: 'wigs/{prefix}_{kmer}.wig'
+    input: 'clean_wigs/{prefix}_{kmer}.wig'
     output: 'bigWigs/{prefix}_{kmer}.bw'
     shell:
         r'''wigToBigWig {input} {CHROM_SIZES} {output}'''
@@ -127,6 +127,13 @@ rule calculate_uniq_mappable:
     shell:
         r'''gawk '{{c+=gsub(s,s)}}END{{print c}}' s='!' {input} > {output}'''
 
+
+# C.albicans output had some weird neucloetides info in the output chrom name
+rule clean_wig:
+  input: 'wigs/{prefix}_{kmer}.wig'
+  output: 'clean_wigs/{prefix}_{kmer}.wig'
+  shell:
+      r'''sed -E 's/ (.*)//' {input} > {output}'''
 
 rule create_summary:
     input: expand('{prefix}_{kmer}.uniq.counts', prefix=GEM_INDEX_PREFIX, kmer=KMER_LENGTHS)
