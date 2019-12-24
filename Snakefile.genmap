@@ -1,0 +1,96 @@
+import os
+from collections import defaultdict
+import errno
+import glob
+import numpy as np
+import pandas as pd
+import os
+from os.path import join
+import ntpath
+
+def path_leaf(path):
+  head, tail = ntpath.split(path)
+  return tail or ntpath.basename(head)
+
+include:
+   config['config_path']
+
+workdir: GENMAP_OUT_DIR
+
+FASTA_NAME = os.path.splitext(path_leaf(GENOME_FA))[0]
+  
+THREADS = 16
+KMER_LENGTHS = range(25, 32, 1)
+def mkdir_p(path):
+  """Python version mkdir -p
+
+  Parameters
+  ----------
+
+  path : str
+  """
+  if path:
+    try:
+      os.makedirs(path) 
+    except OSError as exc:  # Python >2.5
+      if exc.errno == errno.EEXIST and os.path.isdir(path):
+        pass
+      else:
+        raise
+
+
+
+mkdir_p(os.path.join(GENMAP_OUT_DIR, 'slurm-logs'))
+
+rule all:
+    input:
+        GENMAP_INDEX,
+        expand('{kmer}/' + FASTA_NAME + '.genmap.wig', kmer=KMER_LENGTHS),
+        expand('bigWigs/{kmer}.bw', kmer=KMER_LENGTHS),
+
+
+rule create_genmap_index:
+    input: GENOME_FA
+    output: GENMAP_INDEX
+    params:
+        prefix = GENMAP_INDEX_PREFIX + '_tmp'
+    threads: THREADS
+    shell:
+        r'''export TPMDIR=/staging/as/skchoudh && genmap index -A radix -F {input} -I {params.prefix} && mv {params.prefix}/* {GENMAP_INDEX_PREFIX}'''
+
+
+
+rule calc_genmap_mappability:
+    input: GENMAP_INDEX
+    output:
+      txt = '{kmer}/' + FASTA_NAME + '.genmap.txt',
+      wig = '{kmer}/' + FASTA_NAME + '.genmap.wig',
+      bed = '{kmer}/' + FASTA_NAME + '.genmap.bed',
+      sizes = '{kmer}/' + FASTA_NAME +  '.genmap.chrom.sizes'
+    params:
+        kmer='{kmer}',
+        min_match=18,
+        max_mismatch=2,
+    threads: THREADS
+    shell:
+        r'''genmap map --reverse-complement -K {params.kmer} -E {params.max_mismatch} -I {GENMAP_INDEX_PREFIX} -O {params.kmer} -T {threads} -w -t -b'''
+
+# -c : Search on reverse strand as well
+
+rule clean_wig:
+  input: '{kmer}/' + FASTA_NAME + '.genmap.wig',
+  output: 'clean_wigs/{kmer}.wig'
+  shell:
+      r'''sed -E 's/ (.*)//' {input} > {output}'''
+
+
+
+rule wig_2_bw:
+    input: 
+      wig = '{kmer}/' + FASTA_NAME + '.genmap.wig',
+      sizes = '{kmer}/' + FASTA_NAME +  '.genmap.chrom.sizes'
+    output: 'bigWigs/{kmer}.bw'
+    shell:
+        r'''wigToBigWig {input.wig} {input.sizes} {output}'''
+
+

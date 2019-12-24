@@ -16,3 +16,11 @@ calc_gem_mappability:
     mem: '60000MB'
     cores: 16 
 
+create_genmap_index:
+    mem: '60000MB'
+    cores: 16
+
+calc_genmap_mappability:
+    mem: '60000MB'
+    cores: 16 
+
