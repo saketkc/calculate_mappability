@@ -50,13 +50,13 @@ rule all:
 
 
 rule create_genmap_index:
-    input: GENOME_FA
+    input: ancient(GENOME_FA)
     output: GENMAP_INDEX
     params:
         prefix = GENMAP_INDEX_PREFIX + '_tmp'
     threads: THREADS
     shell:
-        r'''export TPMDIR=/staging/as/skchoudh && genmap index -A radix -F {input} -I {params.prefix} && mv {params.prefix}/* {GENMAP_INDEX_PREFIX}'''
+        r'''export TMPDIR={TMPDIR} && genmap index -A skew -F {input} -I {params.prefix} && mv {params.prefix}/* {GENMAP_INDEX_PREFIX}'''
 
 
 

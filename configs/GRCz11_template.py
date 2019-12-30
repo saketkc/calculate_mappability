@@ -1,0 +1,6 @@
+GENOME_FA = '/home/cmb-panasas2/skchoudh/genomes/GRCz11/fasta/Danio_rerio.GRCz11.dna.primary_assembly.cleaned.fa'
+CHROM_SIZES = '/home/cmb-panasas2/skchoudh/genomes/GRCz11/fasta/Danio_rerio.GRCz11.dna.primary_assembly.sizes'
+GENMAP_OUT_DIR = '/home/cmb-panasas2/skchoudh/genomes/GRCz11/genmap'
+GENMAP_INDEX_PREFIX = 'genmap_index'
+GENMAP_INDEX = GENMAP_INDEX_PREFIX + '/' + 'index.rev.lf.drp'
+TMPDIR = '/staging/as/skchoudh/genmap_GRCz11_tmp/'
